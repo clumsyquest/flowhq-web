@@ -1,50 +1,72 @@
-// PROTECTED — ACTION_FLOW
-// Stillworks should detect: PROTECTED (via parent layout), ACTION_FLOW
 export default function DashboardPage() {
   const stats = [
-    { label: "Total Runs",    value: "1,284", change: "+12%" },
-    { label: "Pass Rate",     value: "94.2%", change: "+2.1%" },
-    { label: "Repos Watched", value: "7",     change: "+1" },
-    { label: "Avg Duration",  value: "4.2s",  change: "-0.8s" },
+    { label: "Active workflows", value: "24",    change: "+3 this week",  up: true },
+    { label: "Runs today",       value: "1,847", change: "+12% vs yesterday", up: true },
+    { label: "Success rate",     value: "98.4%", change: "+0.6%",         up: true },
+    { label: "Avg. runtime",     value: "1.2s",  change: "-0.3s",         up: true },
+  ];
+
+  const recentRuns = [
+    { name: "Lead enrichment",     status: "success", time: "2m ago",   duration: "0.8s" },
+    { name: "Slack alert on error","status": "success", time: "5m ago",  duration: "0.4s" },
+    { name: "Daily CRM sync",      status: "success", time: "1h ago",   duration: "4.1s" },
+    { name: "Invoice generator",   status: "failed",  time: "2h ago",   duration: "2.2s" },
+    { name: "Onboarding sequence", status: "success", time: "3h ago",   duration: "1.1s" },
   ];
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-2">Overview</h1>
-      <p className="text-gray-400 mb-8">Welcome back. Here's what's happening.</p>
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-white">Overview</h1>
+        <p className="text-slate-400 text-sm mt-1">Welcome back. Everything looks healthy.</p>
+      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((s) => (
-          <div key={s.label} className="p-4 rounded-xl border border-gray-700 bg-gray-900">
-            <div className="text-sm text-gray-400 mb-1">{s.label}</div>
-            <div className="text-2xl font-bold text-white">{s.value}</div>
-            <div className="text-xs text-green-400 mt-1">{s.change}</div>
+          <div key={s.label} className="p-5 rounded-2xl border" style={{ background: "#0d0d1f", borderColor: "#1a1a3a" }}>
+            <div className="text-xs text-slate-500 mb-2">{s.label}</div>
+            <div className="text-2xl font-bold text-white mb-1">{s.value}</div>
+            <div className="text-xs text-emerald-400">{s.change}</div>
           </div>
         ))}
       </div>
 
-      <div className="rounded-xl border border-gray-700 bg-gray-900 p-6">
-        <h2 className="text-lg font-semibold text-white mb-4">Recent Runs</h2>
-        <div className="space-y-3">
-          {[
-            { repo: "myapp",   commit: "7a2c1f9", status: "PASS",   routes: 6, time: "2 min ago" },
-            { repo: "api",     commit: "3b4d8e2", status: "FAIL",   routes: 4, time: "1 hr ago" },
-            { repo: "landing", commit: "9f1a5c7", status: "PASS",   routes: 3, time: "3 hr ago" },
-          ].map((run) => (
-            <div key={run.commit} className="flex items-center justify-between py-2 border-b border-gray-800 last:border-0">
-              <div>
-                <span className="text-white font-mono text-sm">{run.repo}</span>
-                <span className="text-gray-500 font-mono text-xs ml-2">#{run.commit}</span>
+      <div className="grid lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 rounded-2xl border p-6" style={{ background: "#0d0d1f", borderColor: "#1a1a3a" }}>
+          <h2 className="font-semibold text-white mb-4">Recent runs</h2>
+          <div className="space-y-1">
+            {recentRuns.map((run, i) => (
+              <div key={i} className="flex items-center justify-between py-2.5 border-b last:border-0" style={{ borderColor: "#1a1a3a" }}>
+                <div className="flex items-center gap-3">
+                  <div className={`w-1.5 h-1.5 rounded-full ${run.status === "success" ? "bg-emerald-400" : "bg-red-400"}`} />
+                  <span className="text-sm text-slate-300">{run.name}</span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-slate-500">
+                  <span>{run.duration}</span>
+                  <span>{run.time}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-4">
-                <span className="text-gray-400 text-xs">{run.routes} routes</span>
-                <span className={`text-xs font-mono font-bold ${run.status === "PASS" ? "text-green-400" : "text-red-400"}`}>
-                  {run.status}
-                </span>
-                <span className="text-gray-500 text-xs">{run.time}</span>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border p-6" style={{ background: "#0d0d1f", borderColor: "#1a1a3a" }}>
+          <h2 className="font-semibold text-white mb-4">Quick actions</h2>
+          <div className="space-y-2">
+            {[
+              { label: "New workflow",    href: "/dashboard/projects" },
+              { label: "Invite teammate", href: "/dashboard/team" },
+              { label: "Add integration", href: "/dashboard/integrations" },
+              { label: "View reports",    href: "/dashboard/reports" },
+            ].map((a) => (
+              <a key={a.label} href={a.href}
+                className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm text-slate-300 border transition-colors hover:border-indigo-600"
+                style={{ borderColor: "#1a1a3a" }}>
+                {a.label}
+                <span className="text-slate-600">→</span>
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

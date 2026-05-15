@@ -1,59 +1,73 @@
 "use client";
-// PROTECTED — redirect('/login') pattern
-// Stillworks should detect: PROTECTED (page_file signal — redirect to login)
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { isAuthenticated } from "../lib/auth";
 
 export default function BillingPage() {
   const router = useRouter();
-  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const isAuth = localStorage.getItem("sw_test_auth");
-    if (!isAuth) {
-      router.push("/login"); // redirect to login — Stillworks detects this pattern
-      return;
-    }
-    setLoaded(true);
+    if (!isAuthenticated()) { router.push("/login"); return; }
+    setReady(true);
   }, [router]);
 
-  if (!loaded) return <div className="p-8 text-gray-400">Loading...</div>;
+  if (!ready) return null;
+
+  const invoices = [
+    { date: "May 1, 2026",  amount: "$49.00", status: "Paid" },
+    { date: "Apr 1, 2026",  amount: "$49.00", status: "Paid" },
+    { date: "Mar 1, 2026",  amount: "$49.00", status: "Paid" },
+    { date: "Feb 1, 2026",  amount: "$49.00", status: "Paid" },
+  ];
 
   return (
-    <main className="min-h-screen p-8 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold text-blue-400 mb-6">Billing</h1>
+    <div className="min-h-screen p-8" style={{ background: "#080812" }}>
+      <div className="max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold text-white mb-2">Billing</h1>
+        <p className="text-slate-400 text-sm mb-8">Manage your subscription and invoices.</p>
 
-      <div className="p-6 rounded-xl border border-gray-700 bg-gray-900 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <div className="text-white font-semibold">Pro Plan</div>
-            <div className="text-gray-400 text-sm">€9/month · Next billing: June 1, 2026</div>
-          </div>
-          <span className="px-3 py-1 rounded-full bg-blue-900/40 text-blue-400 text-xs font-mono">ACTIVE</span>
-        </div>
-        <button className="px-4 py-2 rounded-lg border border-gray-600 text-gray-400 hover:text-white text-sm transition-colors">
-          Manage Subscription
-        </button>
-      </div>
-
-      <div className="rounded-xl border border-gray-700 bg-gray-900 p-6">
-        <h2 className="text-lg font-semibold text-white mb-4">Invoice History</h2>
-        <div className="space-y-3">
-          {[
-            { date: "May 1, 2026",  amount: "€9.00", status: "Paid" },
-            { date: "Apr 1, 2026",  amount: "€9.00", status: "Paid" },
-            { date: "Mar 1, 2026",  amount: "€9.00", status: "Paid" },
-          ].map((inv) => (
-            <div key={inv.date} className="flex items-center justify-between py-2 border-b border-gray-800 last:border-0">
-              <span className="text-gray-400 text-sm">{inv.date}</span>
-              <div className="flex items-center gap-4">
-                <span className="text-white font-mono text-sm">{inv.amount}</span>
-                <span className="text-green-400 text-xs">{inv.status}</span>
-              </div>
+        <div className="rounded-2xl border p-6 mb-6" style={{ background: "#0d0d1f", borderColor: "#1a1a3a" }}>
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <div className="text-white font-semibold text-lg">Growth plan</div>
+              <div className="text-slate-400 text-sm">$49 / month · Renews June 1, 2026</div>
             </div>
-          ))}
+            <span className="px-2.5 py-1 rounded-full text-xs font-medium text-emerald-400 bg-emerald-950/50">Active</span>
+          </div>
+          <div className="flex gap-3">
+            <button className="px-4 py-2 rounded-lg text-sm text-slate-300 border transition-colors hover:border-indigo-500"
+              style={{ borderColor: "#2a2a4a" }}>
+              Change plan
+            </button>
+            <button className="px-4 py-2 rounded-lg text-sm text-red-400 hover:bg-red-950/20 transition-colors">
+              Cancel subscription
+            </button>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border overflow-hidden" style={{ borderColor: "#1a1a3a" }}>
+          <div className="px-6 py-4 border-b flex items-center justify-between" style={{ borderColor: "#1a1a3a", background: "#0a0a18" }}>
+            <h2 className="font-semibold text-white">Invoice history</h2>
+          </div>
+          <div className="divide-y" style={{ divideColor: "#1a1a3a" }}>
+            {invoices.map((inv) => (
+              <div key={inv.date} className="px-6 py-4 flex items-center justify-between">
+                <div>
+                  <div className="text-sm text-white">{inv.date}</div>
+                  <div className="text-xs text-slate-500 mt-0.5">Growth plan · monthly</div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-sm font-mono text-white">{inv.amount}</span>
+                  <span className="text-xs text-emerald-400">{inv.status}</span>
+                  <Link href="#" className="text-xs text-indigo-400 hover:text-indigo-300">PDF</Link>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
