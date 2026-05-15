@@ -33,20 +33,20 @@ export default function SettingsPage() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-slate-400 mb-1.5">First name</label>
-                <input type="text" defaultValue="Jane"
+                <input type="text" defaultValue="Sarah"
                   className="w-full px-4 py-2.5 rounded-lg text-sm text-white border outline-none focus:border-indigo-500"
                   style={{ background: "#080812", borderColor: "#1a1a3a" }} />
               </div>
               <div>
                 <label className="block text-sm text-slate-400 mb-1.5">Last name</label>
-                <input type="text" defaultValue="Doe"
+                <input type="text" defaultValue="Moore"
                   className="w-full px-4 py-2.5 rounded-lg text-sm text-white border outline-none focus:border-indigo-500"
                   style={{ background: "#080812", borderColor: "#1a1a3a" }} />
               </div>
             </div>
             <div>
               <label className="block text-sm text-slate-400 mb-1.5">Email</label>
-              <input type="email" defaultValue="demo@flowhq.com"
+              <input type="email" defaultValue="sarah@flowhq.io"
                 className="w-full px-4 py-2.5 rounded-lg text-sm text-white border outline-none focus:border-indigo-500"
                 style={{ background: "#080812", borderColor: "#1a1a3a" }} />
             </div>

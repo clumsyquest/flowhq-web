@@ -39,10 +39,10 @@ export default function DashboardSettingsPage() {
               <button type="button" className="text-sm text-indigo-400 hover:text-indigo-300">Change avatar</button>
             </div>
             {[
-              { label: "First name", value: "Jane",            type: "text" },
-              { label: "Last name",  value: "Doe",             type: "text" },
-              { label: "Email",      value: "demo@flowhq.com", type: "email" },
-              { label: "Company",    value: "Acme Inc.",       type: "text" },
+              { label: "First name", value: "Sarah",           type: "text" },
+              { label: "Last name",  value: "Moore",           type: "text" },
+              { label: "Email",      value: "sarah@flowhq.io", type: "email" },
+              { label: "Company",    value: "FlowHQ",          type: "text" },
             ].map((f) => (
               <div key={f.label}>
                 <label className="block text-sm text-slate-400 mb-1.5">{f.label}</label>
