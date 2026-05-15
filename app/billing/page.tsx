@@ -51,7 +51,7 @@ export default function BillingPage() {
           <div className="px-6 py-4 border-b flex items-center justify-between" style={{ borderColor: "#1a1a3a", background: "#0a0a18" }}>
             <h2 className="font-semibold text-white">Invoice history</h2>
           </div>
-          <div className="divide-y" style={{ divideColor: "#1a1a3a" }}>
+          <div>
             {invoices.map((inv) => (
               <div key={inv.date} className="px-6 py-4 flex items-center justify-between">
                 <div>
