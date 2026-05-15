@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { isAuthenticated, signOut } from "../lib/auth";
@@ -23,9 +22,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
-    if (!isAuthenticated()) router.push("/login");
-  }, [router]);
+  if (!isAuthenticated()) {
+    router.push("/login");
+    return null;
+  }
 
   return (
     <div className="h-screen flex overflow-hidden" style={{ background: "#080812" }}>
