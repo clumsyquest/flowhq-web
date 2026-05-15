@@ -5,7 +5,7 @@ import Link from "next/link";
 import { isAdmin } from "../../lib/auth";
 
 const users = [
-  { name: "Jane Doe",     email: "demo@flowhq.com",   plan: "Growth",   status: "active", joined: "Jan 12, 2026" },
+  { name: "Sarah Moore",   email: "sarah@flowhq.io",   plan: "Growth",   status: "active", joined: "Jan 12, 2026" },
   { name: "Sarah Chen",   email: "sarah@stripe.com",  plan: "Growth",   status: "active", joined: "Feb 3, 2026"  },
   { name: "Luca Bianchi", email: "luca@notion.so",    plan: "Starter",  status: "active", joined: "Feb 18, 2026" },
   { name: "Omar Hassan",  email: "ops@linear.app",    plan: "Growth",   status: "active", joined: "Mar 5, 2026"  },

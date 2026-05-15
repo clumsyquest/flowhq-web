@@ -17,14 +17,14 @@ export default function LoginPage() {
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const password = (form.elements.namedItem("password") as HTMLInputElement).value;
     await new Promise((r) => setTimeout(r, 700));
-    if (email === "admin@flowhq.com" && password === "admin1234") {
+    if (email === "thomas@flowhq.io" && password === "admin2024") {
       signIn(true);
       router.push("/dashboard");
-    } else if (email === "demo@flowhq.com" && password === "demo1234") {
+    } else if (email === "sarah@flowhq.io" && password === "launch2024") {
       signIn(false);
       router.push("/dashboard");
     } else {
-      setError("Invalid credentials. Use demo@flowhq.com / demo1234");
+      setError("Invalid email or password.");
     }
     setLoading(false);
   };
@@ -80,9 +80,6 @@ export default function LoginPage() {
             <Link href="/register" className="text-indigo-400 hover:text-indigo-300">Create one free</Link>
           </p>
         </div>
-        <p className="text-center text-xs text-slate-600 mt-4">
-          Demo: <span className="text-slate-500">demo@flowhq.com</span> / <span className="text-slate-500">demo1234</span>
-        </p>
       </div>
     </div>
   );
