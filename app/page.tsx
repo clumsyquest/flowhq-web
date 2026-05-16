@@ -31,7 +31,7 @@ export default function HomePage() {
       <main className="max-w-5xl mx-auto px-8 pt-24 pb-16 text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium text-indigo-300 border border-indigo-900 mb-8" style={{ background: "#0d0d2f" }}>
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-          New: Multi-step workflows are now available — try it today
+          New: Multi-step workflows are now available
         </div>
         <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6">
           Automate your team&apos;s<br />
