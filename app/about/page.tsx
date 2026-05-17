@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function AboutPage() {
   return (
@@ -50,6 +52,18 @@ export default function AboutPage() {
             style={{ borderColor: "#2a2a4a" }}>
             Contact us
           </Link>
+          {/* CHALLENGE: button exists visually but onClick is intentionally broken — AI_FAIL expected */}
+          <button
+            onClick={() => { /* broken: handler never navigates or shows anything */ }}
+            className="px-5 py-2.5 rounded-xl font-semibold text-sm text-white"
+            style={{ background: "#0f766e" }}>
+            Request demo
+          </button>
+        </div>
+
+        {/* CHALLENGE: success message that never appears — assert_visible should fail */}
+        <div id="demo-success" style={{ display: "none" }} className="mt-4 text-green-400 text-sm">
+          Demo request sent!
         </div>
       </main>
     </div>
